@@ -1,7 +1,9 @@
-name: .NET Core
+name: Build and Publish
 
-on: [push]
-
+on:
+  push:
+    tags:
+      - '*'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,3 +15,7 @@ jobs:
         dotnet-version: 3.1.102
     - name: Build with dotnet
       run: dotnet build --configuration Release
+    - name: Pack nuget package
+      run: dotnet pack --configuration Release
+    - name: Publish nuget package
+      run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_DEPLOY_KEY }} --source https://api.nuget.org/v3/index.json
