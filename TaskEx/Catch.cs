@@ -5,7 +5,7 @@ namespace ReflectiveCode.TaskEx
 {
     public static partial class TaskEx
     {
-        public static async Task Catch(this Task task, Action action)
+        public static async Task Catch(this Task task, Action onFailure)
         {
             try
             {
@@ -13,11 +13,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch
             {
-                action();
+                onFailure();
             }
         }
 
-        public static async Task Catch<TException>(this Task task, Action action) where TException : Exception
+        public static async Task Catch<TException>(this Task task, Action onFailure) where TException : Exception
         {
             try
             {
@@ -25,11 +25,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException)
             {
-                action();
+                onFailure();
             }
         }
 
-        public static async Task Catch(this Task task, Action<Exception> action)
+        public static async Task Catch(this Task task, Action<Exception> onFailure)
         {
             try
             {
@@ -37,11 +37,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (Exception e)
             {
-                action(e);
+                onFailure(e);
             }
         }
 
-        public static async Task Catch<TException>(this Task task, Action<TException> action) where TException : Exception
+        public static async Task Catch<TException>(this Task task, Action<TException> onFailure) where TException : Exception
         {
             try
             {
@@ -49,11 +49,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException e)
             {
-                action(e);
+                onFailure(e);
             }
         }
 
-        public static async Task Catch(this Task task, Func<Task> action)
+        public static async Task Catch(this Task task, Func<Task> onFailure)
         {
             try
             {
@@ -61,11 +61,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (Exception)
             {
-                await action();
+                await onFailure();
             }
         }
 
-        public static async Task Catch<TException>(this Task task, Func<Task> action) where TException : Exception
+        public static async Task Catch<TException>(this Task task, Func<Task> onFailure) where TException : Exception
         {
             try
             {
@@ -73,11 +73,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException)
             {
-                await action();
+                await onFailure();
             }
         }
 
-        public static async Task Catch(this Task task, Func<Exception, Task> action)
+        public static async Task Catch(this Task task, Func<Exception, Task> onFailure)
         {
             try
             {
@@ -85,11 +85,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (Exception e)
             {
-                await action(e);
+                await onFailure(e);
             }
         }
 
-        public static async Task Catch<TException>(this Task task, Func<TException, Task> action) where TException : Exception
+        public static async Task Catch<TException>(this Task task, Func<TException, Task> onFailure) where TException : Exception
         {
             try
             {
@@ -97,11 +97,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException e)
             {
-                await action(e);
+                await onFailure(e);
             }
         }
 
-        public static async Task Catch(this Task task, Func<ValueTask> action)
+        public static async Task Catch(this Task task, Func<ValueTask> onFailure)
         {
             try
             {
@@ -109,11 +109,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (Exception)
             {
-                await action();
+                await onFailure();
             }
         }
 
-        public static async Task Catch<TException>(this Task task, Func<ValueTask> action) where TException : Exception
+        public static async Task Catch<TException>(this Task task, Func<ValueTask> onFailure) where TException : Exception
         {
             try
             {
@@ -121,11 +121,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException)
             {
-                await action();
+                await onFailure();
             }
         }
 
-        public static async Task Catch(this Task task, Func<Exception, ValueTask> action)
+        public static async Task Catch(this Task task, Func<Exception, ValueTask> onFailure)
         {
             try
             {
@@ -133,11 +133,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (Exception e)
             {
-                await action(e);
+                await onFailure(e);
             }
         }
 
-        public static async Task Catch<TException>(this Task task, Func<TException, ValueTask> action) where TException : Exception
+        public static async Task Catch<TException>(this Task task, Func<TException, ValueTask> onFailure) where TException : Exception
         {
             try
             {
@@ -145,11 +145,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException e)
             {
-                await action(e);
+                await onFailure(e);
             }
         }
 
-        public static async Task<T> Catch<T>(this Task<T> task, Func<T> action)
+        public static async Task<T> Catch<T>(this Task<T> task, Func<T> onFailure)
         {
             try
             {
@@ -157,11 +157,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch
             {
-                return action();
+                return onFailure();
             }
         }
 
-        public static async Task<T> Catch<T, TException>(this Task<T> task, Func<T> action) where TException : Exception
+        public static async Task<T> Catch<T, TException>(this Task<T> task, Func<T> onFailure) where TException : Exception
         {
             try
             {
@@ -169,11 +169,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException)
             {
-                return action();
+                return onFailure();
             }
         }
 
-        public static async Task<T> Catch<T>(this Task<T> task, Func<Exception, T> action)
+        public static async Task<T> Catch<T>(this Task<T> task, Func<Exception, T> onFailure)
         {
             try
             {
@@ -181,11 +181,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (Exception e)
             {
-                return action(e);
+                return onFailure(e);
             }
         }
 
-        public static async Task<T> Catch<T, TException>(this Task<T> task, Func<TException, T> action) where TException : Exception
+        public static async Task<T> Catch<T, TException>(this Task<T> task, Func<TException, T> onFailure) where TException : Exception
         {
             try
             {
@@ -193,11 +193,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException e)
             {
-                return action(e);
+                return onFailure(e);
             }
         }
 
-        public static async Task<T> Catch<T>(this Task<T> task, Func<Task<T>> action)
+        public static async Task<T> Catch<T>(this Task<T> task, Func<Task<T>> onFailure)
         {
             try
             {
@@ -205,11 +205,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch
             {
-                return await action();
+                return await onFailure();
             }
         }
 
-        public static async Task<T> Catch<T, TException>(this Task<T> task, Func<Task<T>> action) where TException : Exception
+        public static async Task<T> Catch<T, TException>(this Task<T> task, Func<Task<T>> onFailure) where TException : Exception
         {
             try
             {
@@ -217,11 +217,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException)
             {
-                return await action();
+                return await onFailure();
             }
         }
 
-        public static async Task<T> Catch<T>(this Task<T> task, Func<Exception, Task<T>> action)
+        public static async Task<T> Catch<T>(this Task<T> task, Func<Exception, Task<T>> onFailure)
         {
             try
             {
@@ -229,11 +229,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (Exception e)
             {
-                return await action(e);
+                return await onFailure(e);
             }
         }
 
-        public static async Task<T> Catch<T, TException>(this Task<T> task, Func<TException, Task<T>> action) where TException : Exception
+        public static async Task<T> Catch<T, TException>(this Task<T> task, Func<TException, Task<T>> onFailure) where TException : Exception
         {
             try
             {
@@ -241,11 +241,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException e)
             {
-                return await action(e);
+                return await onFailure(e);
             }
         }
 
-        public static async Task<T> Catch<T>(this Task<T> task, Func<ValueTask<T>> action)
+        public static async Task<T> Catch<T>(this Task<T> task, Func<ValueTask<T>> onFailure)
         {
             try
             {
@@ -253,11 +253,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch
             {
-                return await action();
+                return await onFailure();
             }
         }
 
-        public static async Task<T> Catch<T, TException>(this Task<T> task, Func<ValueTask<T>> action) where TException : Exception
+        public static async Task<T> Catch<T, TException>(this Task<T> task, Func<ValueTask<T>> onFailure) where TException : Exception
         {
             try
             {
@@ -265,11 +265,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException)
             {
-                return await action();
+                return await onFailure();
             }
         }
 
-        public static async Task<T> Catch<T>(this Task<T> task, Func<Exception, ValueTask<T>> action)
+        public static async Task<T> Catch<T>(this Task<T> task, Func<Exception, ValueTask<T>> onFailure)
         {
             try
             {
@@ -277,11 +277,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (Exception e)
             {
-                return await action(e);
+                return await onFailure(e);
             }
         }
 
-        public static async Task<T> Catch<T, TException>(this Task<T> task, Func<TException, ValueTask<T>> action) where TException : Exception
+        public static async Task<T> Catch<T, TException>(this Task<T> task, Func<TException, ValueTask<T>> onFailure) where TException : Exception
         {
             try
             {
@@ -289,11 +289,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException e)
             {
-                return await action(e);
+                return await onFailure(e);
             }
         }
 
-        public static async ValueTask Catch(this ValueTask task, Action action)
+        public static async ValueTask Catch(this ValueTask task, Action onFailure)
         {
             try
             {
@@ -301,11 +301,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch
             {
-                action();
+                onFailure();
             }
         }
 
-        public static async ValueTask Catch<TException>(this ValueTask task, Action action) where TException : Exception
+        public static async ValueTask Catch<TException>(this ValueTask task, Action onFailure) where TException : Exception
         {
             try
             {
@@ -313,11 +313,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException)
             {
-                action();
+                onFailure();
             }
         }
 
-        public static async ValueTask Catch(this ValueTask task, Action<Exception> action)
+        public static async ValueTask Catch(this ValueTask task, Action<Exception> onFailure)
         {
             try
             {
@@ -325,11 +325,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (Exception e)
             {
-                action(e);
+                onFailure(e);
             }
         }
 
-        public static async ValueTask Catch<TException>(this ValueTask task, Action<TException> action) where TException : Exception
+        public static async ValueTask Catch<TException>(this ValueTask task, Action<TException> onFailure) where TException : Exception
         {
             try
             {
@@ -337,11 +337,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException e)
             {
-                action(e);
+                onFailure(e);
             }
         }
 
-        public static async ValueTask Catch(this ValueTask task, Func<ValueTask> action)
+        public static async ValueTask Catch(this ValueTask task, Func<ValueTask> onFailure)
         {
             try
             {
@@ -349,11 +349,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (Exception)
             {
-                await action();
+                await onFailure();
             }
         }
 
-        public static async ValueTask Catch<TException>(this ValueTask task, Func<ValueTask> action) where TException : Exception
+        public static async ValueTask Catch<TException>(this ValueTask task, Func<ValueTask> onFailure) where TException : Exception
         {
             try
             {
@@ -361,11 +361,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException)
             {
-                await action();
+                await onFailure();
             }
         }
 
-        public static async ValueTask Catch(this ValueTask task, Func<Exception, ValueTask> action)
+        public static async ValueTask Catch(this ValueTask task, Func<Exception, ValueTask> onFailure)
         {
             try
             {
@@ -373,11 +373,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (Exception e)
             {
-                await action(e);
+                await onFailure(e);
             }
         }
 
-        public static async ValueTask Catch<TException>(this ValueTask task, Func<TException, ValueTask> action) where TException : Exception
+        public static async ValueTask Catch<TException>(this ValueTask task, Func<TException, ValueTask> onFailure) where TException : Exception
         {
             try
             {
@@ -385,11 +385,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException e)
             {
-                await action(e);
+                await onFailure(e);
             }
         }
 
-        public static async ValueTask Catch(this ValueTask task, Func<Task> action)
+        public static async ValueTask Catch(this ValueTask task, Func<Task> onFailure)
         {
             try
             {
@@ -397,11 +397,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (Exception)
             {
-                await action();
+                await onFailure();
             }
         }
 
-        public static async ValueTask Catch<TException>(this ValueTask task, Func<Task> action) where TException : Exception
+        public static async ValueTask Catch<TException>(this ValueTask task, Func<Task> onFailure) where TException : Exception
         {
             try
             {
@@ -409,11 +409,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException)
             {
-                await action();
+                await onFailure();
             }
         }
 
-        public static async ValueTask Catch(this ValueTask task, Func<Exception, Task> action)
+        public static async ValueTask Catch(this ValueTask task, Func<Exception, Task> onFailure)
         {
             try
             {
@@ -421,11 +421,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (Exception e)
             {
-                await action(e);
+                await onFailure(e);
             }
         }
 
-        public static async ValueTask Catch<TException>(this ValueTask task, Func<TException, Task> action) where TException : Exception
+        public static async ValueTask Catch<TException>(this ValueTask task, Func<TException, Task> onFailure) where TException : Exception
         {
             try
             {
@@ -433,11 +433,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException e)
             {
-                await action(e);
+                await onFailure(e);
             }
         }
 
-        public static async ValueTask<T> Catch<T>(this ValueTask<T> task, Func<T> action)
+        public static async ValueTask<T> Catch<T>(this ValueTask<T> task, Func<T> onFailure)
         {
             try
             {
@@ -445,11 +445,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch
             {
-                return action();
+                return onFailure();
             }
         }
 
-        public static async ValueTask<T> Catch<T, TException>(this ValueTask<T> task, Func<T> action) where TException : Exception
+        public static async ValueTask<T> Catch<T, TException>(this ValueTask<T> task, Func<T> onFailure) where TException : Exception
         {
             try
             {
@@ -457,11 +457,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException)
             {
-                return action();
+                return onFailure();
             }
         }
 
-        public static async ValueTask<T> Catch<T>(this ValueTask<T> task, Func<Exception, T> action)
+        public static async ValueTask<T> Catch<T>(this ValueTask<T> task, Func<Exception, T> onFailure)
         {
             try
             {
@@ -469,11 +469,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (Exception e)
             {
-                return action(e);
+                return onFailure(e);
             }
         }
 
-        public static async ValueTask<T> Catch<T, TException>(this ValueTask<T> task, Func<TException, T> action) where TException : Exception
+        public static async ValueTask<T> Catch<T, TException>(this ValueTask<T> task, Func<TException, T> onFailure) where TException : Exception
         {
             try
             {
@@ -481,11 +481,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException e)
             {
-                return action(e);
+                return onFailure(e);
             }
         }
 
-        public static async ValueTask<T> Catch<T>(this ValueTask<T> task, Func<ValueTask<T>> action)
+        public static async ValueTask<T> Catch<T>(this ValueTask<T> task, Func<ValueTask<T>> onFailure)
         {
             try
             {
@@ -493,11 +493,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch
             {
-                return await action();
+                return await onFailure();
             }
         }
 
-        public static async ValueTask<T> Catch<T, TException>(this ValueTask<T> task, Func<ValueTask<T>> action) where TException : Exception
+        public static async ValueTask<T> Catch<T, TException>(this ValueTask<T> task, Func<ValueTask<T>> onFailure) where TException : Exception
         {
             try
             {
@@ -505,11 +505,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException)
             {
-                return await action();
+                return await onFailure();
             }
         }
 
-        public static async ValueTask<T> Catch<T>(this ValueTask<T> task, Func<Exception, ValueTask<T>> action)
+        public static async ValueTask<T> Catch<T>(this ValueTask<T> task, Func<Exception, ValueTask<T>> onFailure)
         {
             try
             {
@@ -517,11 +517,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (Exception e)
             {
-                return await action(e);
+                return await onFailure(e);
             }
         }
 
-        public static async ValueTask<T> Catch<T, TException>(this ValueTask<T> task, Func<TException, ValueTask<T>> action) where TException : Exception
+        public static async ValueTask<T> Catch<T, TException>(this ValueTask<T> task, Func<TException, ValueTask<T>> onFailure) where TException : Exception
         {
             try
             {
@@ -529,11 +529,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException e)
             {
-                return await action(e);
+                return await onFailure(e);
             }
         }
 
-        public static async ValueTask<T> Catch<T>(this ValueTask<T> task, Func<Task<T>> action)
+        public static async ValueTask<T> Catch<T>(this ValueTask<T> task, Func<Task<T>> onFailure)
         {
             try
             {
@@ -541,11 +541,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch
             {
-                return await action();
+                return await onFailure();
             }
         }
 
-        public static async ValueTask<T> Catch<T, TException>(this ValueTask<T> task, Func<Task<T>> action) where TException : Exception
+        public static async ValueTask<T> Catch<T, TException>(this ValueTask<T> task, Func<Task<T>> onFailure) where TException : Exception
         {
             try
             {
@@ -553,11 +553,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException)
             {
-                return await action();
+                return await onFailure();
             }
         }
 
-        public static async ValueTask<T> Catch<T>(this ValueTask<T> task, Func<Exception, Task<T>> action)
+        public static async ValueTask<T> Catch<T>(this ValueTask<T> task, Func<Exception, Task<T>> onFailure)
         {
             try
             {
@@ -565,11 +565,11 @@ namespace ReflectiveCode.TaskEx
             }
             catch (Exception e)
             {
-                return await action(e);
+                return await onFailure(e);
             }
         }
 
-        public static async ValueTask<T> Catch<T, TException>(this ValueTask<T> task, Func<TException, Task<T>> action) where TException : Exception
+        public static async ValueTask<T> Catch<T, TException>(this ValueTask<T> task, Func<TException, Task<T>> onFailure) where TException : Exception
         {
             try
             {
@@ -577,7 +577,7 @@ namespace ReflectiveCode.TaskEx
             }
             catch (TException e)
             {
-                return await action(e);
+                return await onFailure(e);
             }
         }
     }

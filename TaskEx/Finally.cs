@@ -5,7 +5,7 @@ namespace ReflectiveCode.TaskEx
 {
     public static partial class TaskEx
     {
-        public static async Task Finally(this Task task, Action action)
+        public static async Task Finally(this Task task, Action onCompletion)
         {
             try
             {
@@ -13,10 +13,10 @@ namespace ReflectiveCode.TaskEx
             }
             finally
             {
-                action();
+                onCompletion();
             }
         }
-        public static async Task Finally(this Task task, Func<Task> action)
+        public static async Task Finally(this Task task, Func<Task> onCompletion)
         {
             try
             {
@@ -24,11 +24,11 @@ namespace ReflectiveCode.TaskEx
             }
             finally
             {
-                await action();
+                await onCompletion();
             }
         }
 
-        public static async Task Finally(this Task task, Func<ValueTask> action)
+        public static async Task Finally(this Task task, Func<ValueTask> onCompletion)
         {
             try
             {
@@ -36,11 +36,11 @@ namespace ReflectiveCode.TaskEx
             }
             finally
             {
-                await action();
+                await onCompletion();
             }
         }
 
-        public static async Task<T> Finally<T>(this Task<T> task, Action action)
+        public static async Task<T> Finally<T>(this Task<T> task, Action onCompletion)
         {
             try
             {
@@ -48,11 +48,11 @@ namespace ReflectiveCode.TaskEx
             }
             finally
             {
-                action();
+                onCompletion();
             }
         }
 
-        public static async Task<T> Finally<T>(this Task<T> task, Func<Task> action)
+        public static async Task<T> Finally<T>(this Task<T> task, Func<Task> onCompletion)
         {
             try
             {
@@ -60,11 +60,11 @@ namespace ReflectiveCode.TaskEx
             }
             finally
             {
-                await action();
+                await onCompletion();
             }
         }
 
-        public static async Task<T> Finally<T>(this Task<T> task, Func<ValueTask> action)
+        public static async Task<T> Finally<T>(this Task<T> task, Func<ValueTask> onCompletion)
         {
             try
             {
@@ -72,11 +72,11 @@ namespace ReflectiveCode.TaskEx
             }
             finally
             {
-                await action();
+                await onCompletion();
             }
         }
 
-        public static async ValueTask Finally(this ValueTask task, Action action)
+        public static async ValueTask Finally(this ValueTask task, Action onCompletion)
         {
             try
             {
@@ -84,11 +84,11 @@ namespace ReflectiveCode.TaskEx
             }
             finally
             {
-                action();
+                onCompletion();
             }
         }
 
-        public static async ValueTask Finally(this ValueTask task, Func<ValueTask> action)
+        public static async ValueTask Finally(this ValueTask task, Func<ValueTask> onCompletion)
         {
             try
             {
@@ -96,11 +96,11 @@ namespace ReflectiveCode.TaskEx
             }
             finally
             {
-                await action();
+                await onCompletion();
             }
         }
 
-        public static async ValueTask Finally(this ValueTask task, Func<Task> action)
+        public static async ValueTask Finally(this ValueTask task, Func<Task> onCompletion)
         {
             try
             {
@@ -108,11 +108,11 @@ namespace ReflectiveCode.TaskEx
             }
             finally
             {
-                await action();
+                await onCompletion();
             }
         }
 
-        public static async ValueTask<T> Finally<T>(this ValueTask<T> task, Action action)
+        public static async ValueTask<T> Finally<T>(this ValueTask<T> task, Action onCompletion)
         {
             try
             {
@@ -120,11 +120,11 @@ namespace ReflectiveCode.TaskEx
             }
             finally
             {
-                action();
+                onCompletion();
             }
         }
 
-        public static async ValueTask<T> Finally<T>(this ValueTask<T> task, Func<ValueTask> action)
+        public static async ValueTask<T> Finally<T>(this ValueTask<T> task, Func<ValueTask> onCompletion)
         {
             try
             {
@@ -132,11 +132,11 @@ namespace ReflectiveCode.TaskEx
             }
             finally
             {
-                await action();
+                await onCompletion();
             }
         }
 
-        public static async ValueTask<T> Finally<T>(this ValueTask<T> task, Func<Task> action)
+        public static async ValueTask<T> Finally<T>(this ValueTask<T> task, Func<Task> onCompletion)
         {
             try
             {
@@ -144,7 +144,7 @@ namespace ReflectiveCode.TaskEx
             }
             finally
             {
-                await action();
+                await onCompletion();
             }
         }
     }
